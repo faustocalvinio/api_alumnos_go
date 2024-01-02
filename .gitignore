@@ -11,7 +11,7 @@
 /vendor
 
 # Dependencias específicas de Go
-/go.sum
+# /go.sum
 
 # Archivos de configuración locales
 /.vscode
