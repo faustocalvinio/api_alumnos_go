@@ -1,0 +1,24 @@
+.env
+
+# Archivos ejecutables
+*.exe
+*.out
+*.app
+
+# Directorios de construcción
+/bin
+/pkg
+/vendor
+
+# Dependencias específicas de Go
+/go.sum
+
+# Archivos de configuración locales
+/.vscode
+/.idea
+*.iml
+
+# Archivos de respaldo y temporales
+*~
+*.bak
+*.swp
