@@ -88,6 +88,23 @@ func cargarVariablesEnv() error {
     return nil
 }
 
+func CORSMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
+		c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
+		c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT")
+
+		if c.Request.Method == "OPTIONS" {
+			c.AbortWithStatus(204)
+			return
+		}
+
+		c.Next()
+	}
+}
+
+
 func main() {
 
 	cargarVariablesEnv()
@@ -100,7 +117,7 @@ func main() {
     }
 
     // Obtener y mostrar el valor de otra variable de entorno
-    puerto := os.Getenv("PUERTO")
+    puerto := os.Getenv("PORT")
     if puerto == "" {
         fmt.Println("La variable de entorno PUERTO no está definida.")
     } else {
@@ -108,6 +125,7 @@ func main() {
     }
 
 	router := gin.Default()
+	router.Use(CORSMiddleware())
 	direccion := fmt.Sprintf("localhost:%s", puerto)
 	
 	router.SetTrustedProxies([]string{"127.0.0.1"})
